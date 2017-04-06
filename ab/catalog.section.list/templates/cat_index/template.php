@@ -48,9 +48,6 @@ $this->AddEditAction($arResult['SECTION']['ID'], $arResult['SECTION']['EDIT_LINK
 $this->AddDeleteAction($arResult['SECTION']['ID'], $arResult['SECTION']['DELETE_LINK'], $strSectionDelete, $arSectionDeleteParams);
 ?>
 
-
-
-
 <? //PR($arResult);?>
 <div class="cat_index__wr">
     <div class="container">
