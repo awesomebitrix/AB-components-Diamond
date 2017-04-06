@@ -39,48 +39,57 @@ $arViewStyles = array(
     )
 );
 $arCurView = $arViewStyles[$arParams['VIEW_MODE']];
-
-$strSectionEdit = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_EDIT");
-$strSectionDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_DELETE");
-$arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_CONFIRM'));
 ?>
 
 
 
-<?//PR($arResult);?>
+
+<? //PR($arResult);?>
 <div class="cat_index__wr">
     <div class="container">
-    	<div class="row">
+        <div class="row">
             <div class="cat_index_wr">
-                <?foreach ($arResult['SECTIONS'] as $k => $arResult_items):?>
-                    <?if($k > 4):?>
-                <div class="cat_index_small">
-                    <div class="cat_index_small_img">
-                        <? $file = CFile::ResizeImageGet($arResult_items['DETAIL_PICTURE'],
-                            array('width' => 265, 'height' => 368),
-                            BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
-                        <?//PR($arResult_items['DETAIL_PICTURE']);?>
-                            <img src="<?= $file['src']?>"/>
-                    </div>
-                </div>
-                    <?else:?>
-                <div class="cat_index_small">
-                    <div class="cat_index_small_img">
-                        <? $file = CFile::ResizeImageGet($arResult_items['DETAIL_PICTURE'],
-                            array('width' => 557, 'height' => 250),
-                            BX_RESIZE_IMAGE_PROPORTIONAL, true);?>
-                        <?//PR($arResult_items['DETAIL_PICTURE']);?>
-                        <img src="<?= $file['src']?>"/>
-                    </div>
-                </div>
-                <?endif;?>
-                <?endforeach;?>
+                <? foreach ($arResult['SECTIONS'] as $k => $arResult_items): ?>
+                    <?
+                    $strSectionEdit = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_EDIT");
+                    $strSectionDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_DELETE");
+                    $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_CONFIRM'));
+                    ?>
+                    <? if ($k < 4): ?>
+                        <div class="cat_index_small" id="<? echo $this->GetEditAreaId($arParams['ID']); ?>">
+                            <a href="/">
+                                <div class="cat_index_small_img">
+                                    <? $file = CFile::ResizeImageGet($arResult_items['DETAIL_PICTURE'],
+                                        array('width' => 265, 'height' => 368),
+                                        BX_RESIZE_IMAGE_PROPORTIONAL, true); ?>
+                                    <img src="<?= $file['src'] ?>"/>
+                                    <div class="cat_index_small_name">
+                                        <span><?=$arResult_items["NAME"]?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <? else: ?>
+                        <div class="cat_index_big">
+                            <a href="/">
+                                <div class="cat_index_big_img">
+                                    <? $file = CFile::ResizeImageGet($arResult_items['DETAIL_PICTURE'],
+                                        array('width' => 557, 'height' => 250),
+                                        BX_RESIZE_IMAGE_PROPORTIONAL, true); ?>
+                                    <img src="<?= $file['src'] ?>"/>
+                                    <div class="cat_index_big_name">
+                                        <span><?=$arResult_items["NAME"]?></span>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    <? endif; ?>
+                <? endforeach; ?>
             </div>
-    	</div>
+        </div>
     </div>
 </div>
-
-
 
 
 <div class="<? echo $arCurView['CONT']; ?>">
@@ -91,9 +100,9 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
         ?>
 
     <h1
-        class="<? echo $arCurView['TITLE']; ?>"
-        id="<? echo $this->GetEditAreaId($arResult['SECTION']['ID']); ?>"
-        ><a href="<? echo $arResult['SECTION']['SECTION_PAGE_URL']; ?>"><?
+            class="<? echo $arCurView['TITLE']; ?>"
+            id="<? echo $this->GetEditAreaId($arResult['SECTION']['ID']); ?>"
+    ><a href="<? echo $arResult['SECTION']['SECTION_PAGE_URL']; ?>"><?
             echo(
             isset($arResult['SECTION']["IPROPERTY_VALUES"]["SECTION_PAGE_TITLE"]) && $arResult['SECTION']["IPROPERTY_VALUES"]["SECTION_PAGE_TITLE"] != ""
                 ? $arResult['SECTION']["IPROPERTY_VALUES"]["SECTION_PAGE_TITLE"]
@@ -127,7 +136,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                             )
                         );
                     ?>
-                    <li id="<? echo $this->GetEditAreaId($arSection['ID']); ?>">
+                <li id="<? echo $this->GetEditAreaId($arSection['ID']); ?>">
                     <a
                             href="<? echo $arSection['SECTION_PAGE_URL']; ?>"
                             class="bx_catalog_line_img"
@@ -155,7 +164,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                     $this->AddDeleteAction($arSection['ID'], $arSection['DELETE_LINK'], $strSectionDelete, $arSectionDeleteParams);
 
                     ?>
-                    <li id="<? echo $this->GetEditAreaId($arSection['ID']); ?>"><h2 class="bx_catalog_text_title"><a
+                <li id="<? echo $this->GetEditAreaId($arSection['ID']); ?>"><h2 class="bx_catalog_text_title"><a
                                 href="<? echo $arSection['SECTION_PAGE_URL']; ?>"><? echo $arSection['NAME']; ?></a><?
                         if ($arParams["COUNT_ELEMENTS"]) {
                             ?> <span>(<? echo $arSection['ELEMENT_CNT']; ?>)</span><?
@@ -184,7 +193,7 @@ $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_C
                             )
                         );
                     ?>
-                    <li id="<? echo $this->GetEditAreaId($arSection['ID']); ?>">
+                <li id="<? echo $this->GetEditAreaId($arSection['ID']); ?>">
                 <a
                         href="<? echo $arSection['SECTION_PAGE_URL']; ?>"
                         class="bx_catalog_tile_img"
