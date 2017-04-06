@@ -39,6 +39,13 @@ $arViewStyles = array(
     )
 );
 $arCurView = $arViewStyles[$arParams['VIEW_MODE']];
+$strSectionEdit = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_EDIT");
+$strSectionDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_DELETE");
+$arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_CONFIRM'));
+?>
+<?
+$this->AddEditAction($arResult['SECTION']['ID'], $arResult['SECTION']['EDIT_LINK'], $strSectionEdit);
+$this->AddDeleteAction($arResult['SECTION']['ID'], $arResult['SECTION']['DELETE_LINK'], $strSectionDelete, $arSectionDeleteParams);
 ?>
 
 
@@ -50,13 +57,8 @@ $arCurView = $arViewStyles[$arParams['VIEW_MODE']];
         <div class="row">
             <div class="cat_index_wr">
                 <? foreach ($arResult['SECTIONS'] as $k => $arResult_items): ?>
-                    <?
-                    $strSectionEdit = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_EDIT");
-                    $strSectionDelete = CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "SECTION_DELETE");
-                    $arSectionDeleteParams = array("CONFIRM" => GetMessage('CT_BCSL_ELEMENT_DELETE_CONFIRM'));
-                    ?>
                     <? if ($k < 4): ?>
-                        <div class="cat_index_small" id="<? echo $this->GetEditAreaId($arParams['ID']); ?>">
+                        <div class="cat_index_small" id="<? echo $this->GetEditAreaId($arResult['ID']); ?>">
                             <a href="/">
                                 <div class="cat_index_small_img">
                                     <? $file = CFile::ResizeImageGet($arResult_items['DETAIL_PICTURE'],
