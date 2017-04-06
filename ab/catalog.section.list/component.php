@@ -151,6 +151,7 @@ if($this->startResultCache(false, ($arParams["CACHE_GROUPS"]==="N"? false: $USER
 		"left_margin"=>"asc",
 	);
 	//EXECUTE
+    $arFilter["UF_INCLUDE_INDEX"] = 1;
 	$rsSections = CIBlockSection::GetList($arSort, $arFilter, $arParams["COUNT_ELEMENTS"], $arSelect);
 	$rsSections->SetUrlTemplates("", $arParams["SECTION_URL"]);
 	while($arSection = $rsSections->GetNext())
